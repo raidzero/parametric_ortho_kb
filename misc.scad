@@ -69,6 +69,10 @@ module pro_micro() {
         //translate([mcu_w/2 - usb_w/2, 0, mcu_h - 0.1])
         //    cube([usb_w, mcu_l, usb_h + 0.1]);
 
+        // room for pins at front
+        translate([0, 0, mcu_h])
+            cube([mcu_w, mcu_l - 3, base_height]);
+
         // inside solder channel
         translate([0, 0, -solder_channel_d])
             cube([solder_channel_w, mcu_l - 1, solder_channel_d + 0.1]);

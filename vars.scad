@@ -40,8 +40,8 @@ jack_hole_d = 6.35;
 jack_barrel_d = 8.5;
 
 // pro micro
-mcu_l = 35;
-mcu_w = 19;
+mcu_l = 33.75;
+mcu_w = 18;
 mcu_h = 1.5;
 usb_w = 8;
 usb_h = 3.75;

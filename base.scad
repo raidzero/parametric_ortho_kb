@@ -39,7 +39,7 @@ module base() {
                     #cylinder(d=jack_barrel_d, h=case_depth/2);
 
             // pro micro board & usb port
-            translate([bezel_r, case_depth + bezel_r*2 + 0.01 - mcu_l, plate_thickness - mcu_h/1.75])
+            translate([bezel_r, case_depth + bezel_r*2 + 0.01 - mcu_l, plate_thickness - mcu_h - 1])
                 pro_micro();
         }
     }
@@ -48,7 +48,7 @@ module base() {
 module test_back_right() {
     intersection() {
         translate([case_length - 15,case_depth- 10,0])
-            cube([25,20,20]);
+            cube([25,23,20]);
         base();
     }
 }
@@ -56,7 +56,7 @@ module test_back_right() {
 module test_back_left() {
     intersection() {
         translate([-10,case_depth- 28,0])
-            cube([35,45,20]);
+            cube([35,47,20]);
         base();
     }
 }
