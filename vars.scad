@@ -2,6 +2,7 @@ $fn=100;
 $fs=0.3;
 
 split = true;
+needs_center_plate_screw = true;
 
 rows = 4;
 columns = 12;
