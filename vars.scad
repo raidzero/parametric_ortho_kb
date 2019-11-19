@@ -1,8 +1,10 @@
 $fn=100;
 $fs=0.3;
 
+split = true;
+
 rows = 4;
-columns = 6;
+columns = 12;
 
 switch_hole_size = 14.2;
 switch_spacing = 3; // 3mm on either size of switch hole
@@ -17,7 +19,7 @@ base_height = 15; // height of base, inlcuding cutout
 ss = switch_hole_size + switch_spacing * 2; 
 
 // overall case size before bezels
-case_length = ss * columns;
+case_length = (split) ? ss * columns / 2 : ss * columns;
 case_depth = ss * rows;
 
 // screw params

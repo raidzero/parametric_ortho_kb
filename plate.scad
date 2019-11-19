@@ -2,11 +2,13 @@ include <vars.scad>;
 use <misc.scad>;
 
 module plate() {
+    switchColumns = (split) ? columns / 2 : columns;
+
     difference() {
         case_shape(plate_thickness);
         
         // cut out grid
-        for (x = [0:columns - 1]) {
+        for (x = [0:switchColumns - 1]) {
             for (y = [0:rows - 1]) {
                 x_pos = (x * ss) + bezel_r;
                 y_pos = (y * ss) + bezel_r;
