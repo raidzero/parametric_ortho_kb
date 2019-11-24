@@ -1,13 +1,8 @@
 include <vars.scad>;
 use <misc.scad>;
 
-// return the location for a switch hole given a column and row grid number
-function switch_location(column, row) = [ 
-    bezel_r + (column * ss), 
-    bezel_r + (row * ss) ];
 
 module plate() {
-    switchColumns = (split) ? columns / 2 : columns;
 
     difference() {
         case_shape(plate_thickness);
@@ -22,26 +17,7 @@ module plate() {
         }
 
         // cut out screw holes
-
-        // front left
-        translate([bezel_d, bezel_d, plate_thickness + 0.1])
-            rotate(180, [1, 0, 0])
-                countersunk_screw();
-
-        // front right
-        translate([case_length + bezel_r, bezel_d, plate_thickness + 0.1])
-            rotate(180, [1, 0, 0])
-                countersunk_screw();
-
-        // back left
-        translate([bezel_d, case_depth + bezel_r, plate_thickness + 0.1])
-            rotate(180, [1, 0, 0])
-                countersunk_screw();        
-    
-        // back right
-        translate([case_length + bezel_r, case_depth + bezel_r, plate_thickness + 0.1])
-            rotate(180, [1, 0, 0])
-                countersunk_screw();
+        screw_holes();
 
         // center - if needed
         if (needs_center_plate_screw) {

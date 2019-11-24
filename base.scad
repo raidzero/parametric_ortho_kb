@@ -1,7 +1,12 @@
 include <vars.scad>;
 use <misc.scad>
 
+center_pos = switch_location(switchColumns/2, rows/2);
+center_x = center_pos[0] - switch_spacing; 
+center_y = center_pos[1] - switch_spacing;
+                
 module base() {
+    
     difference() {
         union() {
             case_shape(base_height);
@@ -12,35 +17,36 @@ module base() {
             translate([0, 0, base_height/3.75])
                 case_cavity(base_height);
 
-            // front left heatsert hole
-            translate([bezel_d, bezel_d, base_height/2])
-                heatsert_guide(base_height/2);
-
-            // front right heatsert hole
-            translate([case_length + bezel_r, bezel_d, base_height/2])
-                heatsert_guide(base_height/2);
-
-            // back left heatsert hole
-            translate([bezel_d, case_depth + bezel_r, base_height/2])
-                heatsert_guide(base_height/2);
-
-            // back right heatsert hole
-            translate([case_length + bezel_r, case_depth + bezel_r, base_height/2])
-                heatsert_guide(base_height/2);
-
-            // trrs jack mounting hole
-            translate([case_length - bezel_r, case_depth + bezel_r*2 + 0.01, base_height/1.75])
-                rotate(90, [1, 0, 0])
-                    #cylinder(d=jack_hole_d, h=case_depth/2);
+            // heatsert guides
+            for (i = [0:len(screw_locs)-1]) {
+                translate([screw_locs[i][0], screw_locs[i][1], base_height/2])
+                    heatsert_guide(base_height/2);
+            }
             
-            // trrs jack barrel hole
-            translate([case_length - bezel_r, case_depth + bezel_r*2 - 1.75, base_height/1.75])
-                rotate(90, [1, 0, 0])
-                    #cylinder(d=jack_barrel_d, h=case_depth/2);
+            // trrs jack
+            translate([case_length - jack_hole_d - bezel_r, back_of_case + 0.01, base_height/2.25])
+                jack_hole();
 
+            
             // pro micro board & usb port
-            translate([bezel_r, case_depth + bezel_r*2 + 0.01 - mcu_l, plate_thickness - mcu_h - 1])
-                pro_micro();
+            translate([bezel_r*2, back_of_case + 0.01 - mcu_l, plate_thickness - mcu_h - 1])
+                #pro_micro();
+
+            
+            // magnet holes
+            magnet_holes();
+        }
+    }
+    
+    if (needs_center_plate_screw) {
+        difference() {
+            // center screw post
+            translate([center_x, center_y, 0])
+                cylinder(r=bezel_r * case_thickness_factor, h=base_height);
+            
+            // center heatsert guide
+            translate([center_x, center_y, base_height/2])
+                heatsert_guide(base_height/2);
         }
     }
 }
@@ -62,8 +68,8 @@ module test_back_left() {
 }
 
 //test_back_right();
-test_back_left();
+//test_back_left();
 
 //translate([5, 0, 6])
 //pro_micro();
-//base();
+base();
