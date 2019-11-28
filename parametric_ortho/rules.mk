@@ -9,7 +9,7 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = atmel-dfu
+BOOTLOADER = caterina
 
 # If you don't know the bootloader type, then you can specify the
 # Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
@@ -24,7 +24,7 @@ BOOTLOADER = atmel-dfu
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = yes        # Console for debug
@@ -40,4 +40,4 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no         # Enable support for HD44780 based LCDs
-#SPLIT_KEYBOARD = yes 		# just for testing each half at a time
+SPLIT_KEYBOARD = yes 	

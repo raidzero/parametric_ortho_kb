@@ -49,6 +49,10 @@ module base() {
                 heatsert_guide(base_height/2);
         }
     }
+    
+    // pro micro retainer thing
+    translate([bezel_r*2, back_of_case - mcu_l - 1, plate_thickness - 2])
+        cube([mcu_w,1,2]);
 }
 
 module test_back_right() {

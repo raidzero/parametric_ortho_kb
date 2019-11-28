@@ -27,9 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT parametric_ortho
 #define DESCRIPTION A 3d printed split keyboard
 
+
+#define USE_SERIAL
+
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 6// 12
+#define MATRIX_ROWS 4*2
+#define MATRIX_COLS 6
+
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
 
 /*
  * Keyboard Matrix Assignments
