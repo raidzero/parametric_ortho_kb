@@ -79,12 +79,12 @@ module pro_micro() {
 module jack_hole() {
     // trrs jack mounting hole
     rotate(90, [1, 0, 0])
-        #cylinder(d=jack_hole_d, h=case_depth/2);
+        cylinder(d=jack_hole_d, h=case_depth/2);
     
     // trrs jack barrel hole
     translate([0, -1.75, 0])
         rotate(90, [1, 0, 0])
-            #cylinder(d=jack_barrel_d, h=case_depth/2);
+            cylinder(d=jack_barrel_d, h=case_depth/2);
 }
 
 // screw holes
@@ -92,20 +92,63 @@ module screw_holes() {
     for (i = [0:len(screw_locs) - 1]) {
         screw_x = screw_locs[i][0]; screw_y = screw_locs[i][1];
         
-        translate([screw_x, screw_y, plate_thickness + 0.1])
-            rotate(180, [1, 0, 0])
+        translate([screw_x, screw_y, -0.01])
+            //rotate(180, [1, 0, 0])
                 countersunk_screw();
     }
 }
 
 module magnet_holes() {
     union() {
-        for (i = [1:rows]) {
+        for (i = [0:rows-1]) {
             switch_loc = switch_location(1, i);
 
-            translate([right_edge_of_case - magnet_t + 0.01, switch_loc[1] - magnet_d, base_height/2])
-            rotate(90, [0, 1, 0])
+            translate([right_edge_of_case - magnet_t + 0.01, switch_loc[1] + switch_hole_size/2, base_height/2])
+            rotate(90, [0, 1, 0]) {
                 cylinder(d=magnet_d, h=magnet_t);
+
+                // little holes to stick something in to forcibly remove magnet if desired
+                translate([0, 0, -magnet_t*2])
+                    cylinder(d=3, h=magnet_t*4);
+            }
         }
     }
 }
+
+module usb_c_board() {
+    width = 8.3;
+    height = 2.5;
+
+    x_pos = width/2 - height/2;
+
+    board_w = 15;
+    board_l = 14.5;
+    port_protrusion = 3;
+
+    hull() {
+        translate([-x_pos, 0, 0])
+            rotate(90, [1, 0, 0])
+                cylinder(d=height, h=width);
+
+        translate([x_pos, 0, 0])
+            rotate(90, [1, 0, 0])
+                cylinder(d=height, h=width);
+    }
+
+    translate([0, -board_l/2 - port_protrusion, 0])
+    cube([board_w, board_l, 1], center=true);
+}
+
+//usb_c_board();
+
+module plate_spacer() {
+    difference() {
+        case_shape(plate_spacer_thickness);
+        case_cavity(plate_spacer_thickness);
+
+        translate([0,0,screw_h])
+            screw_holes();
+    }
+}
+
+plate_spacer();

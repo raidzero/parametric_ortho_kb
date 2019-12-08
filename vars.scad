@@ -1,21 +1,31 @@
-$fn=100;
+$fn=20;
 $fs=0.3;
 
-split = true;
+split = false;
 needs_center_plate_screw = true;
+hotswap = true;
 
-rows = 4;
-columns = 12;
+rows = 2;
+columns = 2;
 switchColumns = (split) ? columns / 2 : columns; // the number of columns to use when making the switch grid
+
+// magnet dimens
+magnet_d = 10.2; // diameter
+magnet_t = 2.7; // thickness
 
 switch_hole_size = 14;
 switch_spacing = 3; // 3mm on either size of switch hole
 
-plate_thickness = 5;
+plate_thickness = 1.4;
+plate_spacer_thickness = 3.4;
+helper_thickness = 6 - plate_thickness;
+
 bezel_r = switch_spacing; // corner bezel radius
 bezel_d = bezel_r/2 - bezel_r/2;
 
-base_height = 15; // height of base, inlcuding cutout
+base_height = magnet_d + 1.5; //15; // height of base, inlcuding cutout
+
+echo("total height", base_height + helper_thickness + plate_thickness + plate_spacer_thickness);
 
 // the amount of space used to calculate grid size
 ss = switch_hole_size + switch_spacing * 2; 
@@ -47,9 +57,7 @@ screw_locs = [
 back_of_case = screw_locs[2][1] + bezel_r * case_thickness_factor;
 right_edge_of_case = screw_locs[2][0] + bezel_r * case_thickness_factor;
 
-// magnet dimens
-magnet_d = 12; // diameter
-magnet_t = 2.7; // thickness
+
 
 // m3 heat sert diameter
 m3_hs_d = 5.5; 
